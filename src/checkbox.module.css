@@ -1,0 +1,11 @@
+.outline{
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.checkbox{
+    width: 600px;
+    border: 2px solid black;
+    font-size: 25px;   
+}
