@@ -5,6 +5,7 @@ export default function Checkbox() {
   const [data, setData] = useState([
     {
       id: 1,
+      isChecked: false,
       name: "scheme1",
       sub_scheme: [
         { sub_id: 1, sub_name: "Test1", isChecked: false },
@@ -13,6 +14,7 @@ export default function Checkbox() {
     },
     {
       id: 2,
+      isChecked: false,
       name: "scheme2",
       sub_scheme: [
         { sub_id: 3, sub_name: "Test3", isChecked: false },
@@ -20,21 +22,25 @@ export default function Checkbox() {
       ],
     },
   ]);
-  const [CheckId, setCheckId] = useState();
-  const handleChange = (element) => {
-    let temp = [{ ...data }];
+  const handleChange = (id) => {
+    let temp = [...data];
     console.log(temp, "ggg");
     let index = temp.findIndex((element) => {
-      return element.id === temp.id;
+      return element.id === id;
     });
-    console.log(index, "index");
+    if (index > -1) {
+      console.log("jsgf");
+      temp[index].isChecked = !temp[index].isChecked;
+      temp[index].sub_scheme.map((ele) => {
+        return {
+          ...data,
+          isChecked: !ele.isChecked,
+        };
+      });
+      setData(temp);
+    }
   };
-  //   const handleId = () => {
-  //     data.sub_scheme.map((ele) => {
-  //       setCheckId(ele.sub_id);
-  //       console.log(CheckId, "check");
-  //     });
-  //   };
+
   return (
     <div className={styles.outline}>
       <div className={styles.checkbox}>
@@ -49,7 +55,7 @@ export default function Checkbox() {
                         handleChange(element.id, "head");
                       }}
                       type="checkbox"
-                      //   checked={}
+                      checked={element.isChecked}
                       id={element.id}
                     />
                     <label>{element.name}</label>
@@ -61,9 +67,8 @@ export default function Checkbox() {
                           <input
                             onChange={() => {
                               handleChange(ele.sub_id, "datalist");
-                              setCheckId(ele.sub_id, "dd");
                             }}
-                            // checked="checked"
+                            checked={element.isChecked}
                             type="checkbox"
                             id={ele.sub_id}
                           />
